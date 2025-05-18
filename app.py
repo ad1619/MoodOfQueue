@@ -6,11 +6,12 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import json
 
-# Read from Streamlit secrets
+# Google Sheets auth via secrets
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 creds_dict = json.loads(st.secrets["GOOGLE_CREDS"])
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
+sheet = client.open("Mood of the Queue").sheet1
 
 # --- Google Sheets Setup ---
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
